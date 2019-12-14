@@ -1,7 +1,6 @@
 # Hazelcast and Quarkus
 
-This guide helps you learn how to use Hazelcast from Quarkus in a containerized environment. 
-Feel free to fork it and experiment on your own.
+This guide helps you learn how to use [Hazelcast](https://github.com/hazelcast/hazelcast) from [Quarkus](https://github.com/quarkusio/quarkus) in a containerized environment. Feel free to fork it and experiment on your own.
 
 ## Requirements
 
