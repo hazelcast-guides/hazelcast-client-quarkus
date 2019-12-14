@@ -1,0 +1,19 @@
+version: '3'
+services:
+  hazelcast-quarkus1:
+    container_name: hazelcast-quarkus1
+    image: mesut/hazelcast-quarkus-native
+    environment:
+      - CONTAINER_NAME=hazelcast-quarkus_1
+      - HAZELCAST_IP=node1
+    ports:
+      - "8080:8080"
+  hazelcast-quarkus2:
+    container_name: hazelcast-quarkus2
+    image: mesut/hazelcast-quarkus-native
+    environment:
+      - CONTAINER_NAME=hazelcast-quarkus_2
+      - HAZELCAST_IP=node1
+    ports:
+      - "8081:8080"  
+
