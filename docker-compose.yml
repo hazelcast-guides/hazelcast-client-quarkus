@@ -26,7 +26,7 @@ services:
     image: hazelcast-guides/hazelcast-quarkus-native
     environment:
       - CONTAINER_NAME=hazelcast-quarkus_2
-      - HAZELCAST_IP=node1
+      - HAZELCAST_IP=node2
     ports:
       - "8081:8080"
     depends_on:
