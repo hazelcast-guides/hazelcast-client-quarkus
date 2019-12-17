@@ -1,5 +1,7 @@
 # Hazelcast and Quarkus
 
+<a href="https://github.com/actions/toolkit"><img alt="GitHub Actions status" src="https://github.com/hazelcast-guides/hazelcast-quarkus/workflows/build/badge.svg"></a>
+
 This guide helps you learn how to use [Hazelcast](https://github.com/hazelcast/hazelcast) from [Quarkus](https://github.com/quarkusio/quarkus) in a containerized environment. Feel free to fork it and experiment on your own.
 
 ## Requirements
