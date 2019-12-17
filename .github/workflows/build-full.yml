@@ -1,0 +1,43 @@
+name: Full Build
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ '8', '11' ]
+        architecture: [ 'x64' ]
+
+    name: Build with JDK ${{ matrix.java }} on ${{ matrix.architecture }}
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+          architecture: ${{ matrix.architecture }}
+
+      - name: Build the Native Image
+        run: mvn clean package -Pnative -Dnative-image.docker-build=true
+
+      - name: Build the Docker Image
+        run: docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus-native
+
+      - name: Launch Hazelcast Cluster
+        run: docker-compose -f hazelcast-cluster.yml up -d
+
+      - name: Launch Quarkus Applications
+        run: docker-compose -f hazelcast-quarkus-client.yml up -d
+
+      - name: Verify
+        run: |
+          echo "Setting key=key_1&value=value_1"
+          curl -s -X GET "localhost:8081/hazelcast/put?key=key_1&value=value_1" && sleep 1
+
+          echo
+          echo "Retrieving value for key=key_1"
+          readonly result="$(curl "localhost:8080/hazelcast/get?key=key_1" | jq -r .value)"
+          echo "Retrieved key_1 value: [$result]"
+          [[ "$result" = "value_1" ]] || exit 1
