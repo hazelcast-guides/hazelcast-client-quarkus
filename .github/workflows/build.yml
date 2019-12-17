@@ -1,18 +1,32 @@
-name: Build
+name: Full Build
 on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Run from prebuilt Docker image
+    strategy:
+      matrix:
+        java: [ '8', '11' ]
+        architecture: [ 'x64' ]
+
+    name: Build with JDK ${{ matrix.java }} on ${{ matrix.architecture }}
     steps:
       - uses: actions/checkout@v1
 
-      - name: Launch Hazelcast Cluster
-        run: docker-compose -f hazelcast-cluster.yml up -d
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+          architecture: ${{ matrix.architecture }}
 
-      - name: Launch Quarkus Applications
-        run: docker-compose -f hazelcast-quarkus-client.yml up -d
+      - name: Build the Native Image
+        run: mvn clean package -Pnative -Dnative-image.docker-build=true
+
+      - name: Build the Docker Image
+        run: docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus-native
+
+      - name: Launch Application with Hazelcast Cluster
+        run: docker-compose up -d
 
       - name: Verify
         run: |
