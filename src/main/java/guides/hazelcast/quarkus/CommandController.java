@@ -1,7 +1,5 @@
 package guides.hazelcast.quarkus;
 
-import com.hazelcast.client.HazelcastClient;
-import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.core.HazelcastInstance;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -21,11 +19,10 @@ public class CommandController {
     @ConfigProperty(name = "CONTAINER_NAME")
     private String containerName;
 
-
     @Inject
     HazelcastInstance hazelcastInstance;
 
-    private ConcurrentMap<String,String> retrieveMap() {
+    private ConcurrentMap<String, String> retrieveMap() {
         return hazelcastInstance.getMap("map");
     }
 
@@ -34,7 +31,7 @@ public class CommandController {
     @Produces(MediaType.APPLICATION_JSON)
     public CommandResponse put(@QueryParam("key") String key, @QueryParam("value") String value) {
         retrieveMap().put(key, value);
-        return new CommandResponse(value,containerName);
+        return new CommandResponse(value, containerName);
     }
 
     @GET
@@ -42,17 +39,6 @@ public class CommandController {
     @Produces(MediaType.APPLICATION_JSON)
     public CommandResponse get(@QueryParam("key") String key) {
         String value = retrieveMap().get(key);
-        return new CommandResponse(value,containerName);
+        return new CommandResponse(value, containerName);
     }
-
-
-
-    HazelcastInstance createInstance() {
-        ClientConfig clientConfig = new ClientConfig();
-        clientConfig.getNetworkConfig().getKubernetesConfig().setEnabled(true);
-        clientConfig.getNetworkConfig().getKubernetesConfig().setProperty("service-name","hazelcast-cluster");
-        return HazelcastClient.newHazelcastClient(clientConfig);
-    }
-
-
 }
