@@ -10,13 +10,14 @@ public class CommandResponse {
     }
 
     public CommandResponse(String value, String containerName) {
-        this.value  = value;
+        this.value = value;
         this.containerName = containerName;
     }
 
     public String getValue() {
         return value;
     }
+
     public String getContainerName() {
         return containerName;
     }
