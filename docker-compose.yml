@@ -1,6 +1,7 @@
 ---
 version: '3.7'
 services:
+
   member1:
     container_name: member1
     image: hazelcast/hazelcast:3.12.5
@@ -9,8 +10,8 @@ services:
     container_name: member2
     image: hazelcast/hazelcast:3.12.5
 
-  hazelcast-quarkus1:
-    container_name: hazelcast-quarkus1
+  quarkus-service1:
+    container_name: quarkus-service1
     image: hazelcast-guides/hazelcast-quarkus-native
     environment:
       - CONTAINER_NAME=hazelcast-quarkus_1
@@ -21,8 +22,8 @@ services:
       - member1
       - member2
 
-  hazelcast-quarkus2:
-    container_name: hazelcast-quarkus2
+  quarkus-service2:
+    container_name: quarkus-service2
     image: hazelcast-guides/hazelcast-quarkus-native
     environment:
       - CONTAINER_NAME=hazelcast-quarkus_2
