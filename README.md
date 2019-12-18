@@ -74,7 +74,7 @@ $ docker logs hazelcast-quarkus1 -f
 
 Send a put operation to the first application running on port 8081:
 ```
-$ curl "localhost:8081/hazelcast/put?key=key_1&value=value_1";echo;
+$ curl -X POST "localhost:8081/hazelcast/put?key=key_1&value=value_1";echo;
 {"containerName":"hazelcast-quarkus_2","value":"value_1"}
 ```
 

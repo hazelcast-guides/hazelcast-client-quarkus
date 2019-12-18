@@ -1,5 +1,8 @@
 name: build
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - '**.md'
 
 jobs:
   build:
@@ -31,7 +34,7 @@ jobs:
       - name: Verify
         run: |
           echo "Setting key=key_1&value=value_1"
-          curl -s -X GET "localhost:8081/hazelcast/put?key=key_1&value=value_1" && sleep 1
+          curl -s -X POST "localhost:8081/hazelcast/put?key=key_1&value=value_1" && sleep 1
 
           echo
           echo "Retrieving value for key=key_1"

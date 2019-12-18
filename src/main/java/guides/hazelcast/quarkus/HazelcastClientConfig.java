@@ -11,7 +11,6 @@ import javax.inject.Singleton;
 @ApplicationScoped
 public class HazelcastClientConfig {
 
-
     @Produces
     @Singleton
     HazelcastInstance createInstance() {
