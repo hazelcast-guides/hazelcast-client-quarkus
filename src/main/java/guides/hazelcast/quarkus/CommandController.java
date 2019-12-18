@@ -5,7 +5,9 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -26,7 +28,8 @@ public class CommandController {
         return hazelcastInstance.getMap("map");
     }
 
-    @GET
+    @POST
+    @Consumes
     @Path("/put")
     @Produces(MediaType.APPLICATION_JSON)
     public CommandResponse put(@QueryParam("key") String key, @QueryParam("value") String value) {
