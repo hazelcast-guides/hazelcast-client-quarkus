@@ -1,0 +1,34 @@
+---
+version: '3.7'
+services:
+  member1:
+    container_name: member1
+    image: hazelcast/hazelcast:3.12.5
+
+  member2:
+    container_name: member2
+    image: hazelcast/hazelcast:3.12.5
+
+  hazelcast-quarkus1:
+    container_name: hazelcast-quarkus1
+    image: hazelcast-guides/hazelcast-quarkus-native
+    environment:
+      - CONTAINER_NAME=hazelcast-quarkus_1
+      - HAZELCAST_IP=member1,member2
+    ports:
+      - "8080:8080"
+    depends_on:
+      - member1
+      - member2
+
+  hazelcast-quarkus2:
+    container_name: hazelcast-quarkus2
+    image: hazelcast-guides/hazelcast-quarkus-native
+    environment:
+      - CONTAINER_NAME=hazelcast-quarkus_2
+      - HAZELCAST_IP=member1,member2
+    ports:
+      - "8081:8080"
+    depends_on:
+      - member1
+      - member2

@@ -1,5 +1,7 @@
 # Hazelcast and Quarkus
 
+<a href="https://github.com/actions/toolkit"><img alt="GitHub Actions status" src="https://github.com/hazelcast-guides/hazelcast-quarkus/workflows/build/badge.svg"></a>
+
 This guide helps you learn how to use [Hazelcast](https://github.com/hazelcast/hazelcast) from [Quarkus](https://github.com/quarkusio/quarkus) in a containerized environment. Feel free to fork it and experiment on your own.
 
 ## Requirements
@@ -20,24 +22,25 @@ Business Logic implemented in Microservice is very simple. `put` operation puts 
 
 ### Quarkus Native Executable
 
-Client-Server code sample can be built and pushed to your own Docker Hub or some other registry via following command but that is optional.
-If you decide to build your own image then you should update `hazelcast-quarkus-client.yaml` file with `YOUR-NAME/hazelcast-quarkus-native` as a new image.
+You can build your Quarkus Native Executable by executing:
 
 ```
-$ mvn clean package -Pnative -Dnative-image.docker-build=true
-$ docker build . -f Dockerfile.native -t YOUR-NAME/hazelcast-quarkus-native
-$ docker login
-$ docker push YOUR-NAME/hazelcast-quarkus-native
+mvn clean package -Pnative -Dnative-image.docker-build=true
 ```
 
-Pre-built image used in this guide is located [here](https://hub.docker.com/r/mesut/hazelcast-quarkus-native)
-
-### Launch Hazelcast Cluster
+And then by building the Docker image:
 ```
-docker-compose -f hazelcast-cluster.yml up -d
+docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus-native
 ```
 
-Verify 2 members joined to hazelcast cluster
+### Application
+
+Launch application consisting of a Hazelcast cluster and two Quarkus applications:
+```
+docker-compose up -d
+```
+
+Verify 2 members joined Hazelcast cluster:
 
 ```
 $ docker logs node1 -f
@@ -49,14 +52,7 @@ $ docker logs node1 -f
 ...
 ```
 
-### Launch Quarkus Microservices
-
-Launch Quarkus Microservice containers.
-```
-docker-compose -f hazelcast-quarkus-client.yml up -d
-```
-
-Check logs to see if quarkus started properly.
+Check logs to see if Quarkus applications started properly:
 
 ```
 $ docker logs hazelcast-quarkus1 -f
@@ -65,13 +61,13 @@ $ docker logs hazelcast-quarkus1 -f
 2019-12-13 23:40:27,299 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy, resteasy-jackson, resteasy-jsonb]...
 ```
 
-Send a put operation to the first microservice running on port 8081
+Send a put operation to the first microservice running on port 8081:
 ```
 $ curl "localhost:8081/hazelcast/put?key=key_1&value=value_1";echo;
 {"containerName":"hazelcast-quarkus_2","value":"value_1"}
 ```
 
-Get the value from microservice running on 8080 and verify that it is the same value as put operation
+Get the value from microservice running on 8080 and verify that it is the same value as put operation:
 ```
 $ curl "localhost:8080/hazelcast/get?key=key_1";echo;
 {"containerName":"hazelcast-quarkus_1","value":"value_1"}
@@ -79,8 +75,7 @@ $ curl "localhost:8080/hazelcast/get?key=key_1";echo;
 
 Clean Up
 ```
-$ docker-compose -f hazelcast-quarkus-client.yml down
-$ docker-compose -f hazelcast-cluster.yml down
+$ docker-compose down
 ```
 
 ## Conclusion 
