@@ -29,7 +29,6 @@ public class CommandController {
     }
 
     @POST
-    @Consumes
     @Path("/put")
     @Produces(MediaType.APPLICATION_JSON)
     public CommandResponse put(@QueryParam("key") String key, @QueryParam("value") String value) {
