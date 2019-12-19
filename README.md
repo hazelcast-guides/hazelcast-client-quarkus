@@ -37,10 +37,10 @@ mvn clean package -Pnative -Dnative-image.docker-build=true
 The `-Dnative-image.docker-build=true` build parameter runs the native compilation inside a special GraalVM-enabled Docker container provided by Quarkus.
 However, if you wish, you can use your local GraalVM setup.
 
-Now, we're ready to build the Docker image (based on a dedicated Dockerfile: `Dockerfile.native`):
+Now, we're ready to build the Docker image (based on a dedicated native-friendly Dockerfile):
 
 ```
-docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus-native
+docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus-native
 ```
 
 ### Application
