@@ -26,7 +26,7 @@ jobs:
         run: mvn clean package -Pnative -Dnative-image.docker-build=true
 
       - name: Build the Docker Image
-        run: docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus-native
+        run: docker build . -t hazelcast-guides/hazelcast-quarkus-native
 
       - name: Launch Application with Hazelcast Cluster
         run: docker-compose up -d

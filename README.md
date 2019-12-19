@@ -40,7 +40,7 @@ However, if you wish, you can use your local GraalVM setup.
 Now, we're ready to build the Docker image (based on a dedicated native-friendly Dockerfile):
 
 ```
-docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus-native
+docker build . -t hazelcast-guides/hazelcast-quarkus-native
 ```
 
 ### Application
