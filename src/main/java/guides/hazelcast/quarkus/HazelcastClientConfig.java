@@ -6,14 +6,14 @@ import com.hazelcast.core.HazelcastInstance;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
+import java.time.LocalTime;
 
 @ApplicationScoped
 public class HazelcastClientConfig {
 
     @Produces
-    @Singleton
     HazelcastInstance createInstance() {
+        System.out.println("Create instance at +" + LocalTime.now());
         ClientConfig clientConfig = new ClientConfig();
         String[] members = System.getenv("HAZELCAST_IP").split(",");
         clientConfig.getNetworkConfig().addAddress(members);
