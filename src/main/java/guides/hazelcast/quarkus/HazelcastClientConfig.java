@@ -6,7 +6,6 @@ import com.hazelcast.core.HazelcastInstance;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
-import java.time.LocalTime;
 
 @ApplicationScoped
 public class HazelcastClientConfig {
