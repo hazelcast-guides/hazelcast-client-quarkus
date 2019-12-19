@@ -13,7 +13,6 @@ public class HazelcastClientConfig {
 
     @Produces
     HazelcastInstance createInstance() {
-        System.out.println("Create instance at +" + LocalTime.now());
         ClientConfig clientConfig = new ClientConfig();
         String[] members = System.getenv("HAZELCAST_IP").split(",");
         clientConfig.getNetworkConfig().addAddress(members);
