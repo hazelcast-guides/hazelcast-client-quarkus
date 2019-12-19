@@ -3,9 +3,7 @@ package guides.hazelcast.quarkus;
 import com.hazelcast.core.HazelcastInstance;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 import java.util.concurrent.ConcurrentMap;
 
 @Path("/hazelcast")
-@RequestScoped
 public class CommandController {
 
     @ConfigProperty(name = "CONTAINER_NAME")
