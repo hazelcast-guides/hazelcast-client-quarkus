@@ -54,7 +54,7 @@ docker-compose up -d
 We can verify that two members joined the Hazelcast cluster:
 
 ```
-$ docker logs node1 -f
+$ docker logs member1 -f
 ...
  Members {size:2, ver:2} [
 	Member [172.30.0.2]:5701 - b123eadd-e3e6-4605-867d-1f1f40a2eaf2 this
