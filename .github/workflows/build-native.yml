@@ -1,4 +1,4 @@
-name: build
+name: build-native
 on:
   push:
     paths-ignore:
@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ '8', '11' ]
+        java: [ '11' ]
         architecture: [ 'x64' ]
 
     name: Build with JDK ${{ matrix.java }} on ${{ matrix.architecture }}
@@ -23,7 +23,7 @@ jobs:
           architecture: ${{ matrix.architecture }}
 
       - name: Build the Native Image
-        run: mvn clean package
+        run: mvn clean package -Pnative -Dnative-image.docker-build=true
 
       - name: Build the Docker Image
         run: docker build . -t hazelcast-guides/hazelcast-quarkus-native
