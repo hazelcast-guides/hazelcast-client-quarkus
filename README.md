@@ -66,7 +66,7 @@ $ docker logs member1 -f
 We can verify that Quarkus applications started properly (notice the startup time of 14ms!):
 
 ```
-$ docker logs hazelcast-quarkus1 -f
+$ docker logs quarkus-service1 -f
 2019-12-13 23:40:27,298 INFO  [io.quarkus] (main) hazelcast-quarkus-guide 1.0-SNAPSHOT (running on Quarkus 1.0.0.Final) started in 0.014s. Listening on: http://0.0.0.0:8080
 2019-12-13 23:40:27,299 INFO  [io.quarkus] (main) Profile prod activated. 
 2019-12-13 23:40:27,299 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy, resteasy-jackson, resteasy-jsonb]...
@@ -75,13 +75,13 @@ $ docker logs hazelcast-quarkus1 -f
 Send a put operation to the first application running on port 8081:
 ```
 $ curl -X POST "localhost:8081/hazelcast/put?key=key_1&value=value_1";echo;
-{"containerName":"hazelcast-quarkus_2","value":"value_1"}
+{"containerName":"quarkus-service2","value":"value_1"}
 ```
 
 Get the value from application running on 8080 and verify that it's the same value as put operation:
 ```
 $ curl "localhost:8080/hazelcast/get?key=key_1";echo;
-{"containerName":"hazelcast-quarkus_1","value":"value_1"}
+{"containerName":"quarkus-service1","value":"value_1"}
 ```
 
 Clean Up
