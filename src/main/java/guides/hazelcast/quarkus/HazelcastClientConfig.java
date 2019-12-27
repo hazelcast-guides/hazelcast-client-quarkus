@@ -1,6 +1,7 @@
 package guides.hazelcast.quarkus;
 
 import com.hazelcast.client.HazelcastClient;
+import com.hazelcast.client.config.ClientClasspathXmlConfig;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.core.HazelcastInstance;
 
@@ -12,10 +13,6 @@ public class HazelcastClientConfig {
 
     @Produces
     HazelcastInstance createInstance() {
-        ClientConfig clientConfig = new ClientConfig();
-        String[] members = System.getenv("HAZELCAST_IP").split(",");
-
-        clientConfig.getNetworkConfig().addAddress(members);
-        return HazelcastClient.newHazelcastClient(clientConfig);
+        return HazelcastClient.newHazelcastClient(new ClientClasspathXmlConfig("hazelcast.xml"));
     }
 }
