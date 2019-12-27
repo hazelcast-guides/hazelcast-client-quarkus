@@ -3,7 +3,6 @@ FROM adoptopenjdk/openjdk11:jdk-11.0.5_10-ubi-minimal
 WORKDIR /work/
 
 COPY target/lib /work/application/lib
-COPY target/classes /work/application/classes
 COPY target/*.jar /work/application/
 RUN chmod 775 /work
 
