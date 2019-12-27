@@ -1,6 +1,12 @@
-FROM registry.access.redhat.com/ubi8/ubi-minimal
+FROM adoptopenjdk/openjdk11:jdk-11.0.5_10-ubi-minimal
+
 WORKDIR /work/
-COPY target/*-runner /work/application
+
+COPY target/lib /work/application/lib
+COPY target/classes /work/application/classes
+COPY target/*.jar /work/application/
 RUN chmod 775 /work
+
 EXPOSE 8080
-CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
+
+CMD exec java -Dquarkus.http.host=0.0.0.0 -jar /work/application/*-runner.jar

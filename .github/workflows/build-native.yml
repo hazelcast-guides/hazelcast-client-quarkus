@@ -1,4 +1,4 @@
-name: build
+name: build-native
 on:
   push:
     paths-ignore:
@@ -22,11 +22,11 @@ jobs:
           java-version: ${{ matrix.java }}
           architecture: ${{ matrix.architecture }}
 
-      - name: Maven Build
-        run: mvn package
+      - name: Maven Build the Native Runner
+        run: mvn package && mvn clean package -Pnative -Dnative-image.docker-build=true
 
-      - name: Build the Docker Image
-        run: docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus-native
+      - name: Build the Native Docker Image
+        run: docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus-native
 
       - name: Launch Application with Hazelcast Cluster
         run: docker-compose up -d
@@ -34,7 +34,6 @@ jobs:
       - name: Verify
         run: |
           echo "Setting key=key_1&value=value_1"
-          sleep 10
           curl -s -X POST "localhost:8081/hazelcast/put?key=key_1&value=value_1" && sleep 1
 
           echo

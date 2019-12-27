@@ -1,5 +1,6 @@
 # Hazelcast and Quarkus
 
+<a href="https://github.com/actions/toolkit"><img alt="GitHub Actions status" src="https://github.com/hazelcast-guides/hazelcast-quarkus/workflows/build-native/badge.svg"></a>
 <a href="https://github.com/actions/toolkit"><img alt="GitHub Actions status" src="https://github.com/hazelcast-guides/hazelcast-quarkus/workflows/build/badge.svg"></a>
 
 This guide shows how to setup [Hazelcast](https://github.com/hazelcast/hazelcast) with [Quarkus](https://github.com/quarkusio/quarkus) in a containerized environment. 
