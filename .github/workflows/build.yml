@@ -33,13 +33,12 @@ jobs:
 
       - name: Verify
         run: |
-          echo "Setting key=key_1&value=value_1"
-
           until $(curl --output /dev/null --silent --head --fail "localhost:8081/hazelcast/get?key=key_1"); do
             printf '.'
             sleep 1
           done
 
+          echo "Setting key=key_1&value=value_1"
           curl -s -X POST "localhost:8081/hazelcast/put?key=key_1&value=value_1" && sleep 1
 
           echo
