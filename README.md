@@ -27,7 +27,21 @@ The `put` operation places a key-value pair to Hazelcast and `get` operation ret
  
 The Container Name is present to make it clear from which instance the value is returned from.
 
-### Quarkus Native Executable
+### Building Quarkus Application
+
+To build a standalone jar, you can use a standard Maven command:
+
+```
+mvn package
+```
+
+Now, we're ready to build the Docker image:
+
+```
+docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus-native
+```
+
+#### Building Quarkus Native Executable
 
 To build a native executable, you can use the dedicated _native_ Maven profile:
 
@@ -41,8 +55,10 @@ However, if you wish, you can use your local GraalVM setup.
 Now, we're ready to build the Docker image (based on a dedicated native-friendly Dockerfile):
 
 ```
-docker build . -t hazelcast-guides/hazelcast-quarkus-native
+docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus-native
 ```
+
+However, keep in mind that native mode doesn't support all the feature out-of-the-box.
 
 ### Application
 
