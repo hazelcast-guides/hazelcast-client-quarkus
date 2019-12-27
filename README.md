@@ -108,5 +108,3 @@ Clean Up
 ```
 $ docker-compose down
 ```
-
-## Conclusion 
