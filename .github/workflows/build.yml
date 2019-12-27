@@ -34,7 +34,7 @@ jobs:
       - name: Verify
         run: |
           attempts=0
-          max_attempts=5
+          max_attempts=10
           until $(curl --output /dev/null --silent --head --fail "localhost:8081/hazelcast/get?key=key_1"); do
             if [ ${attempts} -eq ${max_attempts} ];then
                 echo "Application not responding"
@@ -44,6 +44,7 @@ jobs:
             attempts=$(($attempts+1))
             sleep 1
           done
+          echo
 
           echo "Setting key=key_1&value=value_1"
           curl -s -X POST "localhost:8081/hazelcast/put?key=key_1&value=value_1" && sleep 1
