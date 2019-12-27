@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast-client xmlns="http://www.hazelcast.com/schema/client-config"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.hazelcast.com/schema/client-config
+                  http://www.hazelcast.com/schema/client-config/hazelcast-client-config-4.0.xsd">
+
+    <network>
+        <cluster-members>
+            <address>member1</address>
+            <address>member2</address>
+        </cluster-members>
+        <outbound-ports>
+            <ports>34600</ports>
+            <ports>34700-34710</ports>
+        </outbound-ports>
+        <smart-routing>true</smart-routing>
+        <redo-operation>true</redo-operation>
+        <connection-timeout>60000</connection-timeout>
+    </network>
+
+    <load-balancer type="random"/>
+</hazelcast-client>
