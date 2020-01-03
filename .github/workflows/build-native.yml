@@ -1,4 +1,4 @@
-name: build
+name: build-native
 on:
   push:
     paths-ignore:
@@ -12,7 +12,7 @@ jobs:
         java: [ '11' ]
         architecture: [ 'x64' ]
 
-    name: Build with JDK ${{ matrix.java }} on ${{ matrix.architecture }}
+    name: Build Native Executable with JDK ${{ matrix.java }} on ${{ matrix.architecture }}
     steps:
       - uses: actions/checkout@v1
 
@@ -22,30 +22,17 @@ jobs:
           java-version: ${{ matrix.java }}
           architecture: ${{ matrix.architecture }}
 
-      - name: Maven Build
-        run: mvn package
+      - name: Maven Build the Native Runner
+        run: mvn package && mvn clean package -Pnative -Dnative-image.docker-build=true
 
-      - name: Build the Docker Image
-        run: docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus-native
+      - name: Build the Native Docker Image
+        run: docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus-native
 
       - name: Launch Application with Hazelcast Cluster
         run: docker-compose up -d
 
       - name: Verify
         run: |
-          attempts=0
-          max_attempts=10
-          until $(curl --output /dev/null --silent --head --fail "localhost:8081/hazelcast/get?key=key_1"); do
-            if [ ${attempts} -eq ${max_attempts} ];then
-                echo "Application not responding"
-                exit 1
-            fi
-            printf '.'
-            attempts=$(($attempts+1))
-            sleep 1
-          done
-          echo
-
           echo "Setting key=key_1&value=value_1"
           curl -s -X POST "localhost:8081/hazelcast/put?key=key_1&value=value_1" && sleep 1
 

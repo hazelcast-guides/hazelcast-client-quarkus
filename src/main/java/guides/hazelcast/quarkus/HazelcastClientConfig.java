@@ -14,6 +14,7 @@ public class HazelcastClientConfig {
     HazelcastInstance createInstance() {
         ClientConfig clientConfig = new ClientConfig();
         String[] members = System.getenv("HAZELCAST_IP").split(",");
+
         clientConfig.getNetworkConfig().addAddress(members);
         return HazelcastClient.newHazelcastClient(clientConfig);
     }
