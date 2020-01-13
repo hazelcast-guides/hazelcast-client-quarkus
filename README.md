@@ -12,7 +12,7 @@ This guide shows how to start experimenting with [Hazelcast](https://github.com/
 
 ### Docker
 
-Make sure that both Docker and Docker Compose are installed. 
+Make sure that both Docker and Docker Compose are installed (and that Docker daemon has enough memory to work with). 
 ```
 $ docker -v
 Docker version 19.03.5, build 633a0ea
