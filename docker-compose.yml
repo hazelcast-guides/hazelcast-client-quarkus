@@ -3,12 +3,12 @@ version: '3.7'
 services:
 
   member1:
+    build: hz4
     container_name: member1
-    image: hazelcast/hazelcast:4.0
 
   member2:
     container_name: member2
-    image: hazelcast/hazelcast:4.0
+    build: hz4
 
   quarkus-service1:
     container_name: quarkus-service1
