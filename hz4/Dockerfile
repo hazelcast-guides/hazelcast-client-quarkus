@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM frolvlad/alpine-glibc:alpine-3.8_glibc-2.27
 
 # Versions of Hazelcast and Hazelcast plugins
 ARG HZ_VERSION=4.0
