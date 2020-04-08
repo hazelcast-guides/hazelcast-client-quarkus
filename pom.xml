@@ -32,8 +32,8 @@
     <dependencies>
         <dependency>
             <groupId>com.hazelcast</groupId>
-            <artifactId>hazelcast</artifactId>
-            <version>4.0</version>
+            <artifactId>quarkus-hazelcast-client</artifactId>
+            <version>1.0.0-RC2</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -42,11 +42,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jackson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.cache</groupId>
-            <artifactId>cache-api</artifactId>
-            <version>1.1.1</version>
         </dependency>
     </dependencies>
     <build>
