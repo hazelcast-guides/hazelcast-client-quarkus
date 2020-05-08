@@ -33,7 +33,7 @@
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>quarkus-hazelcast-client</artifactId>
-            <version>1.0.0-RC3</version>
+            <version>1.0.0-RC4</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
