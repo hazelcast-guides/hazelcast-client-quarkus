@@ -9,13 +9,12 @@ import javax.enterprise.inject.Produces;
 
 @ApplicationScoped
 public class HazelcastClientConfig {
-
     @Produces
     HazelcastInstance createInstance() {
         ClientConfig clientConfig = new ClientConfig();
-        String[] members = System.getenv("HAZELCAST_IP").split(",");
-
-        clientConfig.getNetworkConfig().addAddress(members);
+        clientConfig.getNetworkConfig().getAwsConfig()
+          .setEnabled(true)
+          .setProperty("cluster", "fargate-discovery-cluster");
         return HazelcastClient.newHazelcastClient(clientConfig);
     }
 }

@@ -15,9 +15,6 @@ import java.util.concurrent.ConcurrentMap;
 @Path("/hazelcast")
 public class CommandController {
 
-    @ConfigProperty(name = "CONTAINER_NAME")
-    private String containerName;
-
     @Inject
     HazelcastInstance hazelcastInstance;
 
@@ -30,7 +27,7 @@ public class CommandController {
     @Produces(MediaType.APPLICATION_JSON)
     public CommandResponse put(@QueryParam("key") String key, @QueryParam("value") String value) {
         retrieveMap().put(key, value);
-        return new CommandResponse(value, containerName);
+        return new CommandResponse(value, "containerName");
     }
 
     @GET
@@ -38,6 +35,6 @@ public class CommandController {
     @Produces(MediaType.APPLICATION_JSON)
     public CommandResponse get(@QueryParam("key") String key) {
         String value = retrieveMap().get(key);
-        return new CommandResponse(value, containerName);
+        return new CommandResponse(value, "containerName");
     }
 }
