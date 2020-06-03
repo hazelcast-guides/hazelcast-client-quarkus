@@ -21,7 +21,7 @@
         <dependencies>
             <dependency>
                 <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-bom</artifactId>
+                <artifactId>quarkus-universe-bom</artifactId>
                 <version>${quarkus.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -33,7 +33,6 @@
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>quarkus-hazelcast-client</artifactId>
-            <version>1.0.0-RC4</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
