@@ -1,0 +1,161 @@
+:github-address: https://github.com/mtyazici/hazelcast-quarkus
+:templates-url: https://raw.githubusercontent.com/hazelcast-guides/adoc-templates/master
+:hazelcast: Hazelcast IMDG
+:framework: Quarkus
+
+= Getting Started with Hazelcast using Quarkus
+
+Hazelcast is the fastest cloud-native distributed cache solution in the OSS world. It's elastic and a natural fit for cloud-ready architectures. Quarkus tailors your application for GraalVM and HotSpot. It has amazingly fast boot time, incredibly low RSS memory (not just heap size!) offering near-instant scale-up.
+
+include::{templates-url}/link-to-repo.adoc[]
+
+== What You’ll Learn
+
+
+This guide showcases how to setup a basic Quarkus application to work with Hazelcast Client-Server Topology in a containerized environment.
+
+Quarkus application will take HTTP requests for manipulating data and it will act as a client for Hazelcast cluster members.
+
+
+== Prerequisites
+
+* ~20 mins
+* Docker and Docker Compose
+* Apache Maven 3.2+
+* cURL
+
+== The Quarkus Application Structure
+
+https://raw.githubusercontent.com/hazelcast-guides/adoc-templates/master/microservices/application-structure.adoc
+
+== Using Hazelcast in the Application
+
+In `pom.xml` we add quarkus-hazelcast-client dependency as follows:
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.hazelcast</groupId>
+    <artifactId>quarkus-hazelcast-client</artifactId>
+</dependency>
+----
+
+And in the code we need to configure the client as follows:
+
+[source,java]
+----
+@ApplicationScoped
+public class HazelcastClientConfig {
+    @Produces
+    HazelcastInstance createInstance() {
+        ClientConfig clientConfig = new ClientConfig();
+        String[] members = System.getenv("HAZELCAST_IP").split(",");
+        clientConfig.getNetworkConfig().addAddress(members);
+        return HazelcastClient.newHazelcastClient(clientConfig);
+    }
+}
+----
+
+The environment variable `HAZELCAST_IP` in the above code is set in the `docker-compose.yml` file. This file creates a Hazelcast cluster with 2 members and 2 Quarkus applications.
+
+----
+        .
+        .
+        .
+  quarkus-service1:
+    container_name: quarkus-service1
+    image: hazelcast-guides/hazelcast-quarkus-native
+    environment:
+      - CONTAINER_NAME=hazelcast-quarkus_1
+      - HAZELCAST_IP=member1,member2
+    ports:
+        .
+        .
+        .
+----
+
+== Building Quarkus Application
+
+To build a standalone jar, you can use a standard Maven command:
+----
+mvn package
+----
+Now, we're ready to build the Docker image:
+----
+docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus-native
+----
+
+=== Building Quarkus Native Executable
+
+To build a native executable, you can use the dedicated native Maven profile:
+
+----
+mvn clean package -Pnative -Dnative-image.docker-build=true
+----
+
+The `-Dnative-image.docker-build=true` build parameter runs the native compilation inside a special GraalVM-enabled Docker container provided by Quarkus. However, if you wish, you can use your local GraalVM setup.
+
+Now, we're ready to build the Docker image (based on a dedicated native-friendly Dockerfile):
+
+----
+docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus-native
+----
+
+However, keep in mind that native mode doesn't support all features out-of-the-box (https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md).
+
+=== Running the Application
+
+We're ready to launch the application consisting of a Hazelcast cluster and two Quarkus applications:
+
+----
+docker-compose up -d
+----
+
+We can verify that two members joined the Hazelcast cluster:
+
+----
+$ docker logs member1 -f
+...
+ Members {size:2, ver:2} [
+	Member [172.30.0.2]:5701 - b123eadd-e3e6-4605-867d-1f1f40a2eaf2 this
+	Member [172.30.0.3]:5701 - c31026b6-e01d-45f7-b3b2-3d0338d67ef2
+]
+...
+----
+
+We can verify that Quarkus applications started properly (notice the startup time of 14ms!):
+----
+$ docker logs quarkus-service1 -f
+2019-12-13 23:40:27,298 INFO  [io.quarkus] (main) hazelcast-quarkus-guide 1.0-SNAPSHOT (running on Quarkus 1.0.0.Final) started in 0.014s. Listening on: http://0.0.0.0:8080
+2019-12-13 23:40:27,299 INFO  [io.quarkus] (main) Profile prod activated.
+2019-12-13 23:40:27,299 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy, resteasy-jackson, resteasy-jsonb]...
+----
+
+Send a put operation to the first application running on port 8081:
+
+----
+$ curl -X POST "localhost:8081/hazelcast/put?key=key_1&value=value_1";echo;
+{"containerName":"quarkus-service2","value":"value_1"}
+----
+Get the value from application running on 8080 and verify that it's the same value as put operation:
+
+----
+$ curl "localhost:8080/hazelcast/get?key=key_1";echo;
+{"containerName":"quarkus-service1","value":"value_1"}
+----
+
+Clean Up
+
+----
+$ docker-compose down
+----
+
+== Summary
+
+In this guide we developed a Quarkus application with Hazelcast client that takes HTTP requests then puts the data in one of the Hazelcast cluster members.
+
+== See Also
+
+- https://github.com/hazelcast-guides/caching-springboot-microservices-on-kubernetes[Caching SpringBoot Microservices with Hazelcast in Kubernetes]
+- https://github.com/hazelcast-guides/caching-micronaut-microservices-on-kubernetes[Caching Micronaut Microservices on Kubernetes using Hazelcast]
+- https://github.com/hazelcast-guides/hazelcast-embedded-springboot[Hazelcast Embedded Spring Boot]
