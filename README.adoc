@@ -11,24 +11,24 @@ include::{templates-url}/link-to-repo.adoc[]
 
 == What You’ll Learn
 
-
-This guide showcases how to setup a basic Quarkus application to work with Hazelcast Client-Server Topology in a containerized environment.
-
-Quarkus application will take HTTP requests for manipulating data and it will act as a client for Hazelcast cluster members.
+ In this guide, you'll see how to quickly set up a native-image-ready Quarkus application using Hazelcast Client.
 
 
 == Prerequisites
 
-* ~20 mins
+* ~10 mins
 * Docker and Docker Compose
 * Apache Maven 3.2+
-* cURL
 
 == The Quarkus Application Structure
 
-https://raw.githubusercontent.com/hazelcast-guides/adoc-templates/master/microservices/application-structure.adoc
+This guide showcases how to setup a basic Quarkus application to work with Hazelcast Client-Server Topology. 
 
-== Using Hazelcast in the Application
+The `put` operation places a key-value pair to Hazelcast and `get` operation returns the value along with the Container Name.
+
+The Container Name is present to make it clear from which instance the value is returned from.
+
+== Using Hazelcast Client in the Application
 
 In `pom.xml` we add quarkus-hazelcast-client dependency as follows:
 
@@ -77,10 +77,12 @@ The environment variable `HAZELCAST_IP` in the above code is set in the `docker-
 == Building Quarkus Application
 
 To build a standalone jar, you can use a standard Maven command:
+[source]
 ----
 mvn package
 ----
 Now, we're ready to build the Docker image:
+[source]
 ----
 docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus-native
 ----
@@ -88,7 +90,7 @@ docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus-native
 === Building Quarkus Native Executable
 
 To build a native executable, you can use the dedicated native Maven profile:
-
+[source]
 ----
 mvn clean package -Pnative -Dnative-image.docker-build=true
 ----
@@ -96,23 +98,23 @@ mvn clean package -Pnative -Dnative-image.docker-build=true
 The `-Dnative-image.docker-build=true` build parameter runs the native compilation inside a special GraalVM-enabled Docker container provided by Quarkus. However, if you wish, you can use your local GraalVM setup.
 
 Now, we're ready to build the Docker image (based on a dedicated native-friendly Dockerfile):
-
+[source]
 ----
 docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus-native
 ----
 
 However, keep in mind that native mode doesn't support all features out-of-the-box (https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md).
 
-=== Running the Application
+== Running the Application
 
 We're ready to launch the application consisting of a Hazelcast cluster and two Quarkus applications:
-
+[source]
 ----
 docker-compose up -d
 ----
 
 We can verify that two members joined the Hazelcast cluster:
-
+[source]
 ----
 $ docker logs member1 -f
 ...
@@ -124,6 +126,7 @@ $ docker logs member1 -f
 ----
 
 We can verify that Quarkus applications started properly (notice the startup time of 14ms!):
+[source]
 ----
 $ docker logs quarkus-service1 -f
 2019-12-13 23:40:27,298 INFO  [io.quarkus] (main) hazelcast-quarkus-guide 1.0-SNAPSHOT (running on Quarkus 1.0.0.Final) started in 0.014s. Listening on: http://0.0.0.0:8080
@@ -132,27 +135,30 @@ $ docker logs quarkus-service1 -f
 ----
 
 Send a put operation to the first application running on port 8081:
-
+[source]
 ----
 $ curl -X POST "localhost:8081/hazelcast/put?key=key_1&value=value_1";echo;
 {"containerName":"quarkus-service2","value":"value_1"}
 ----
 Get the value from application running on 8080 and verify that it's the same value as put operation:
-
+[source]
 ----
 $ curl "localhost:8080/hazelcast/get?key=key_1";echo;
 {"containerName":"quarkus-service1","value":"value_1"}
 ----
 
 Clean Up
-
+[source]
 ----
 $ docker-compose down
 ----
 
 == Summary
 
-In this guide we developed a Quarkus application with Hazelcast client that takes HTTP requests then puts the data in one of the Hazelcast cluster members.
+
+In this guide, we bootstrapped a native-image-ready Quarkus application which uses Hazelcast Client.
+
+We started two application instances, and they formed a Hazelcast cluster. Since the data was shared among all Hazelcast cluster instances, we could access it from both application instances.
 
 == See Also
 
