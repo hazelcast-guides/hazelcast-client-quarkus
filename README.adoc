@@ -22,7 +22,7 @@ include::{templates-url}/link-to-repo.adoc[]
 
 == The Quarkus Application Structure
 
-This guide showcases how to setup a basic Quarkus application to work with Hazelcast Client-Server Topology. 
+This guide showcases how to set up a basic Quarkus application to work with Hazelcast Client-Server topology. 
 
 The `put` operation places a key-value pair to Hazelcast and `get` operation returns the value along with the Container Name.
 
@@ -30,7 +30,7 @@ The Container Name is present to make it clear from which instance the value is 
 
 == Using Hazelcast Client in the Application
 
-In `pom.xml` we add quarkus-hazelcast-client dependency as follows:
+In `pom.xml` we add _quarkus-hazelcast-client_ dependency as follows:
 
 [source,xml]
 ----
