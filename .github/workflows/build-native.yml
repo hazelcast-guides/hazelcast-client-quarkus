@@ -2,7 +2,7 @@ name: build-native
 on:
   push:
     paths-ignore:
-      - '**.md'
+      - 'doc/**'
 
 jobs:
   build:
