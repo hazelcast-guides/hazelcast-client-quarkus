@@ -162,5 +162,6 @@ We started two application instances, and they formed a Hazelcast cluster. Since
 
 == See Also
 
-- https://github.com/hazelcast-guides/caching-micronaut-microservices-on-kubernetes[Caching Micronaut Microservices on Kubernetes using Hazelcast]
-- https://github.com/hazelcast-guides/hazelcast-embedded-springboot[Hazelcast Embedded Spring Boot]
+- xref:hazelcast-embedded-springboot:ROOT:index.adoc[Hazelcast in SpringBoot]
+- xref:hazelcast-microprofile:ROOT:index.adoc[Hazelcast in Microprofile]
+- xref:hazelcast-embedded-micronaut:ROOT:index.adoc[Hazelcast in Micronaut]
