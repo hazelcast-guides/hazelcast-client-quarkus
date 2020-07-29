@@ -59,9 +59,7 @@ public class HazelcastClientConfig {
 The environment variable `HAZELCAST_IP` in the above code is set in the `docker-compose.yml` file. This file creates a Hazelcast cluster with 2 members and 2 Quarkus applications.
 [source, yaml]
 ----
-        .
-        .
-        .
+...
   quarkus-service1:
     container_name: quarkus-service1
     image: hazelcast-guides/hazelcast-quarkus-native
@@ -69,9 +67,7 @@ The environment variable `HAZELCAST_IP` in the above code is set in the `docker-
       - CONTAINER_NAME=hazelcast-quarkus_1
       - HAZELCAST_IP=member1,member2
     ports:
-        .
-        .
-        .
+...
 ----
 
 == Building Quarkus Application
