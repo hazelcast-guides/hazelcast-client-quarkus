@@ -1,4 +1,4 @@
-:github-address: https://github.com/hazelcast-guides/hazelcast-quarkus/
+:github-address: https://github.com/hazelcast-guides/hazelcast-client-quarkus/
 :templates-url: templates:ROOT:page$/
 :hazelcast: Hazelcast IMDG
 :framework: Quarkus
@@ -22,7 +22,7 @@ In this guide, you'll see how to quickly set up a native-image-ready Quarkus app
 
 == The Quarkus Application Structure
 
-This guide showcases how to set up a basic Quarkus application to work with Hazelcast Client-Server topology. 
+This guide showcases how to set up a basic Quarkus application to work with Hazelcast Client-Server topology.
 
 The `put` operation places a key-value pair to Hazelcast and `get` operation returns the value along with the Container Name.
 
@@ -159,5 +159,5 @@ We started two application instances, and they formed a Hazelcast cluster. Since
 == See Also
 
 - xref:hazelcast-embedded-springboot:ROOT:index.adoc[Hazelcast in SpringBoot]
-- xref:hazelcast-microprofile:ROOT:index.adoc[Hazelcast in Microprofile]
-- xref:hazelcast-embedded-micronaut:ROOT:index.adoc[Hazelcast in Micronaut]
+- xref:hazelcast-embedded-microprofile:ROOT:index.adoc[Hazelcast in Microprofile]
+- xref:caching-micronaut:ROOT:index.adoc[Hazelcast in Micronaut]
