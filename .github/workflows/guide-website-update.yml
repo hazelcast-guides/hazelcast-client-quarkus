@@ -25,9 +25,7 @@ jobs:
 
       - name: Build website artifacts
         run: |
-          antora --clean --fetch --to-dir ./docs antora-playbook.yml
-          touch docs/.nojekyll
-
+          sh create.sh
       - name: Commit artifacts changes
         run: |
           git config --global user.name 'devOpsHazelcast'
