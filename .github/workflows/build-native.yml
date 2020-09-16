@@ -24,7 +24,7 @@ jobs:
           architecture: ${{ matrix.architecture }}
 
       - name: Maven Build the Native Runner
-        run: mvn package && mvn clean package -Pnative -Dnative-image.docker-build=true
+        run: mvn package && mvn clean package -Pnative -Dquarkus.native.container-build=true
 
       - name: Build the Native Docker Image
         run: docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus-native
