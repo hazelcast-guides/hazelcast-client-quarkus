@@ -4,15 +4,15 @@ services:
 
   member1:
     container_name: member1
-    image: hazelcast/hazelcast:4.0
+    image: hazelcast/hazelcast:4.0.3
 
   member2:
     container_name: member2
-    image: hazelcast/hazelcast:4.0
+    image: hazelcast/hazelcast:4.0.3
 
   quarkus-service1:
     container_name: quarkus-service1
-    image: hazelcast-guides/hazelcast-quarkus-native
+    image: hazelcast-guides/hazelcast-quarkus
     environment:
       - CONTAINER_NAME=hazelcast-quarkus_1
       - HAZELCAST_IP=member1,member2
@@ -24,7 +24,7 @@ services:
 
   quarkus-service2:
     container_name: quarkus-service2
-    image: hazelcast-guides/hazelcast-quarkus-native
+    image: hazelcast-guides/hazelcast-quarkus
     environment:
       - CONTAINER_NAME=hazelcast-quarkus_2
       - HAZELCAST_IP=member1,member2

@@ -62,7 +62,7 @@ The environment variable `HAZELCAST_IP` in the above code is set in the `docker-
 ...
   quarkus-service1:
     container_name: quarkus-service1
-    image: hazelcast-guides/hazelcast-quarkus-native
+    image: hazelcast-guides/hazelcast-quarkus
     environment:
       - CONTAINER_NAME=hazelcast-quarkus_1
       - HAZELCAST_IP=member1,member2
@@ -80,7 +80,7 @@ mvn package
 Now, we're ready to build the Docker image:
 [source]
 ----
-docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus-native
+docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus
 ----
 
 === Building Quarkus Native Executable
@@ -96,7 +96,7 @@ The `-Dnative-image.docker-build=true` build parameter runs the native compilati
 Now, we're ready to build the Docker image (based on a dedicated native-friendly Dockerfile):
 [source]
 ----
-docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus-native
+docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus
 ----
 
 However, keep in mind that native mode doesn't support all features out-of-the-box (https://github.com/oracle/graal/blob/master/substratevm/Limitations.md).
