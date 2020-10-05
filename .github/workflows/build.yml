@@ -27,7 +27,7 @@ jobs:
         run: mvn package
 
       - name: Build the Docker Image
-        run: docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus-native
+        run: docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus
 
       - name: Launch Application with Hazelcast Cluster
         run: docker-compose up -d
