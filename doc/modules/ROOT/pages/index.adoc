@@ -88,7 +88,7 @@ docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus
 To build a native executable, you can use the dedicated native Maven profile:
 [source]
 ----
-mvn clean package -Pnative -Dnative-image.docker-build=true
+mvn clean package -Dnative -Dquarkus.native.container-build=true
 ----
 
 The `-Dnative-image.docker-build=true` build parameter runs the native compilation inside a special GraalVM-enabled Docker container provided by Quarkus. However, if you wish, you can use your local GraalVM setup.
