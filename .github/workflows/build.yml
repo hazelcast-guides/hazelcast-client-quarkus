@@ -2,8 +2,8 @@ name: build
 on:
   push:
     paths-ignore:
-      - 'doc/**'
-      - '**.md'
+      - 'docs/**'
+      - '**.adoc'
 
 jobs:
   build:
