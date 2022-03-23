@@ -2,7 +2,7 @@
 :templates-url: templates:ROOT:page$/
 :page-layout: tutorial
 :page-product: cloud
-:page-categories: Caching, Getting Started, Microservice
+:page-categories: Caching, Getting Started, Microservices
 :page-lang: java
 :page-edition: 
 :page-est-time: 10 mins
