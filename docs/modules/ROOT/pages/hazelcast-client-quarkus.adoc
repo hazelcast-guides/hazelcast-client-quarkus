@@ -1,7 +1,7 @@
 = Get Started with Hazelcast and Quarkus
 :templates-url: templates:ROOT:page$/
 :page-layout: tutorial
-:page-product: cloud
+:page-product: imdg
 :page-categories: Caching, Getting Started, Microservices
 :page-lang: java
 :page-edition: 
@@ -150,7 +150,6 @@ $ docker-compose down
 ----
 
 == Summary
-
 
 In this tutorial, you bootstrapped a native-image-ready Quarkus application which uses a Hazelcast client.
 
