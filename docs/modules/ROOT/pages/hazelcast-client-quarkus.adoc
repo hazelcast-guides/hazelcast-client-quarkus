@@ -2,16 +2,16 @@
 :templates-url: templates:ROOT:page$/
 :page-layout: tutorial
 :page-product: imdg
-:page-categories: Caching, Getting Started, Microservices
+:page-categories: Caching, Getting Started, Microservices, Cloud Native
 :page-lang: java
 :page-edition: 
 :page-est-time: 10 mins
 :framework: Quarkus
-:description: In this tutorial, you'll see how to quickly set up a native-image-ready Quarkus application using a Hazelcast client.
-
-== What You’ll Learn
+:description: Set up a native image-ready Quarkus application, using a Hazelcast client.
 
 {description}
+
+== Context
 
 Hazelcast is the fastest cloud-native distributed cache solution in the OSS world. It's elastic and a natural fit for cloud-ready architectures. Quarkus tailors your application for GraalVM and HotSpot. It has amazingly fast boot time, incredibly low RSS memory (not just heap size!) offering near-instant scale-up.
 
