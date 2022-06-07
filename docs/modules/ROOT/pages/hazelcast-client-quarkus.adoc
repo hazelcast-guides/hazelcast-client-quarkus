@@ -1,34 +1,34 @@
-:github-address: https://github.com/hazelcast-guides/hazelcast-client-quarkus/
+= Get Started with Hazelcast and Quarkus
 :templates-url: templates:ROOT:page$/
-:hazelcast: Hazelcast IMDG
+:page-layout: tutorial
+:page-product: imdg
+:page-categories: Caching, Getting Started, Microservices, Cloud Native
+:page-lang: java
+:page-edition: 
+:page-est-time: 10 mins
 :framework: Quarkus
+:description: Set up a native image-ready Quarkus application, using a Hazelcast client.
 
-= Getting Started with Hazelcast using Quarkus
+{description}
+
+== Context
 
 Hazelcast is the fastest cloud-native distributed cache solution in the OSS world. It's elastic and a natural fit for cloud-ready architectures. Quarkus tailors your application for GraalVM and HotSpot. It has amazingly fast boot time, incredibly low RSS memory (not just heap size!) offering near-instant scale-up.
 
-include::{templates-url}/link-to-repo.adoc[]
+== Before you Begin
 
-== What You’ll Learn
-
-In this guide, you'll see how to quickly set up a native-image-ready Quarkus application using Hazelcast Client.
-
-
-== Prerequisites
-
-* ~10 mins
 * Docker and Docker Compose
 * Apache Maven 3.2+
 
 == The Quarkus Application Structure
 
-This guide showcases how to set up a basic Quarkus application to work with Hazelcast Client-Server topology.
+This guide showcases how to set up a basic Quarkus application to work with Hazelcast client/server topology.
 
 The `put` operation places a key-value pair to Hazelcast and `get` operation returns the value along with the Container Name.
 
 The Container Name is present to make it clear from which instance the value is returned from.
 
-== Using Hazelcast Client in the Application
+== Use Hazelcast Client in the Application
 
 In `pom.xml` we add _quarkus-hazelcast-client_ dependency as follows:
 
@@ -70,7 +70,7 @@ The environment variable `HAZELCAST_IP` in the above code is set in the `docker-
 ...
 ----
 
-== Building Quarkus Application
+== Build the Quarkus Application
 
 To build a standalone jar, you can use a standard Maven command:
 [source]
@@ -83,7 +83,7 @@ Now, we're ready to build the Docker image:
 docker build . -f Dockerfile -t hazelcast-guides/hazelcast-quarkus
 ----
 
-=== Building Quarkus Native Executable
+=== Build the Quarkus Native Executable
 
 To build a native executable, you can use the dedicated native Maven profile:
 [source]
@@ -101,7 +101,7 @@ docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus
 
 However, keep in mind that native mode doesn't support all features out-of-the-box (https://github.com/oracle/graal/blob/master/substratevm/Limitations.md).
 
-== Running the Application
+== Run the Application
 
 We're ready to launch the application consisting of a Hazelcast cluster and two Quarkus applications:
 [source]
@@ -151,13 +151,12 @@ $ docker-compose down
 
 == Summary
 
+In this tutorial, you bootstrapped a native-image-ready Quarkus application which uses a Hazelcast client.
 
-In this guide, we bootstrapped a native-image-ready Quarkus application which uses Hazelcast Client.
-
-We started two application instances, and they formed a Hazelcast cluster. Since the data was shared among all Hazelcast cluster instances, we could access it from both application instances.
+You started two application instances, and they formed a Hazelcast cluster. Since the data was shared among all Hazelcast cluster instances, you could access it from both application instances.
 
 == See Also
 
-- xref:hazelcast-embedded-springboot:ROOT:index.adoc[Hazelcast in SpringBoot]
-- xref:hazelcast-embedded-microprofile:ROOT:index.adoc[Hazelcast in Microprofile]
-- xref:caching-micronaut:ROOT:index.adoc[Hazelcast in Micronaut]
+- xref:hazelcast-embedded-springboot.adoc[]
+- xref:hazelcast-embedded-microprofile.adoc[]
+- xref:caching-micronaut.adoc[]
