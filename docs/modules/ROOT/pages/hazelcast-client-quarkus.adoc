@@ -99,7 +99,7 @@ Now, we're ready to build the Docker image (based on a dedicated native-friendly
 docker build . -f Dockerfile.native -t hazelcast-guides/hazelcast-quarkus
 ----
 
-However, keep in mind that native mode doesn't support all features out-of-the-box (https://github.com/oracle/graal/blob/master/substratevm/Limitations.md).
+However, keep in mind that native mode doesn't support all features out-of-the-box (https://docs.oracle.com/en/graalvm/enterprise/21/docs/reference-manual/llvm/NativeExecution/#limitations-and-differences-to-native-execution).
 
 == Run the Application
 
